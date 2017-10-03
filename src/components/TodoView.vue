@@ -3,11 +3,11 @@
     <div class="layout">
       <div class="todos">
         <h2>正在进行</h2>
-        <transition-group name="list" tag="ol">
+        <transition-group name="list" mode="out-in" tag="ol">
           <li v-for="(todo, index) in todoList.doing" :key="todo.createdAt">
             <input type="checkbox" v-model="todo.done" @click="changeState(index, todo)">
             <p>
-              <span class="title">{{ todo.title }}</span>
+              <span class="title" title="点击查看在左侧详情" @click="updateActiveTodo(todo)">{{ todo.title }}</span>
               <span class="time">{{ todo.createdAt }}</span>
               <button class="btn" @click="toTop(todo)">↑</button>
             </p>
@@ -16,11 +16,11 @@
       </div>
       <div class="todosDone">
         <h2>已经完成</h2>
-        <transition-group name="list" tag="ol">
+        <transition-group name="list" mode="out-in" tag="ol">
           <li v-for="(todo, index) in todoList.done" :key="todo.createdAt">
             <input type="checkbox" v-model="todo.done" @click="changeState(index, todo)">
             <p>
-              <span class="title">{{ todo.title }}</span>
+              <span class="title" title="点击查看在左侧详情" @click="updateActiveTodo(todo)">{{ todo.title }}</span>
               <span class="time">{{ todo.createdAt }}</span>
               <button class="btn" @click="removeTodo(index)">X</button>
             </p>
@@ -43,6 +43,9 @@
       },
       toTop(todo) {
         this.$emit('toTop', todo)
+      },
+      updateActiveTodo(todo) {
+        this.$emit('updateActiveTodo', todo)
       }
     }
   }
@@ -51,7 +54,7 @@
 <style lang="scss">
   #todoView {
     flex: 1;
-    background-color: #cdcdcd;
+    background-color: rgba(0,0,0,.3);
     overflow-y: auto;
     .layout {
       width: 600px;
@@ -62,14 +65,14 @@
       font-size: 24px;
     }
     .list-enter-active, .list-leave-active {
-      transition: all 1s;
+      transition: all .5s;
     }
     .list-enter, .list-leave-to{
       opacity: 0;
       transform: translateY(30px);
     }
     .list-move {
-      transition: transform 1s;
+      transition: transform .5s;
     }
     li {
       height: 32px;
@@ -97,6 +100,8 @@
           flex: 1;
           margin-right: 5px;
           border-radius: 3px;
+          height: 32px;
+          overflow: hidden;
           cursor: pointer;
           &:hover {
             background-color: #444;

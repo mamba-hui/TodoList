@@ -1,5 +1,6 @@
 <template>
   <div id="signInAndSignUp">
+    <h1>TodoList</h1>
     <div class="loginMethods">
       <div class="btn" @click="actionType='signIn'" :class="{active: actionType==='signIn'}">
         登录
@@ -67,7 +68,12 @@
 
 <style lang="scss">
   #signInAndSignUp {
-    margin-top: 80px;
+    h1 {
+      margin-bottom: 80px;
+      font-size: 48px;
+      text-align: center;
+      color: #12b7f5;
+    }
     .loginMethods {
       margin-bottom: 36px;
       display: flex;

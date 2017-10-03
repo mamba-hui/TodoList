@@ -1,14 +1,15 @@
 <template>
   <div id="app">
     <aside id="aside">
-      <h1>TodoList</h1>
       <SignInAndSignUp v-if="!currentUser" @updateUser="updateUser"/>
       <div id="inputAndUser" v-if="currentUser">
+        <Panel :todoList="todoList" :activeTodo="activeTodo"/>
         <TodoInput @pushTodo="pushTodo"/>
         <UserInfo :currentUser="currentUser" @updateUser="updateUser"/>
       </div>
     </aside>
-    <TodoView v-if="currentUser" :todoList="todoList" @removeTodo="removeTodo" @changeState="changeState" @toTop="toTop"/>
+    <Banner :currentUser="currentUser"/>
+    <TodoView v-if="currentUser" :todoList="todoList" @removeTodo="removeTodo" @changeState="changeState" @toTop="toTop" @updateActiveTodo="updateActiveTodo"/>
   </div>
 </template>
 
@@ -17,11 +18,13 @@
   import TodoInput from './components/TodoInput.vue'
   import SignInAndSignUp from './components/SignInAndSignUp.vue'
   import UserInfo from './components/UserInfo.vue'
+  import Panel from './components/Panel.vue'
+  import Banner from './components/Banner.vue'
   import AV from './assets/AV'
 
   export default {
     name: 'app',
-    components: {TodoView, TodoInput, SignInAndSignUp, UserInfo},
+    components: {TodoView, TodoInput, SignInAndSignUp, UserInfo, Panel, Banner},
     data: function () {
       return {
         currentUser: null,
@@ -29,7 +32,8 @@
           id: undefined,
           doing: [],
           done: []
-        }
+        },
+        activeTodo: null
       }
     },
     methods: {
@@ -65,6 +69,9 @@
           return cur === todo ? 1 : 0
         })
         this.saveOrUpdateTodos()
+      },
+      updateActiveTodo(todo) {
+        this.activeTodo = todo
       },
       fetchTodos() {
         if(this.currentUser) {
@@ -132,11 +139,6 @@
     width: 300px;
     padding: 32px 48px;
     background-color: #292a33;
-    h1 {
-      font-size: 48px;
-      text-align: center;
-      color: #12b7f5;
-    }
   }
   #inputAndUser {
     flex: 1;

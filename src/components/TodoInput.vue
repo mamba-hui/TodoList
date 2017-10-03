@@ -6,7 +6,7 @@
     </div>
     <div class="todoDetail">
       <label for="todoDetail">内容描述</label>
-      <textarea class="t-input" id="todoDetail" rows="6" v-model="newTodo.detail" placeholder="详细内容，可省略。。。"></textarea>
+      <textarea class="t-input" id="todoDetail" rows="4" v-model="newTodo.detail" placeholder="详细内容，可省略。。。"></textarea>
     </div>
     <div class="addtodo">
       <button class="btn" @click="addTodo">添加</button>
