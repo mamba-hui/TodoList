@@ -23,7 +23,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: url("../../static/banner.jpg") no-repeat ;
+    background: url("../assets/banner.jpg") no-repeat ;
     background-size: cover;
     h2 {
       color: #353d40;

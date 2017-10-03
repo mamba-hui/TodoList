@@ -131,6 +131,7 @@
     min-height: 560px;
     height: 100%;
     display: flex;
+    position: relative;
   }
 
   #aside {
