@@ -17,13 +17,13 @@
 
 <style lang="scss">
   #banner {
-    position: fixed;
+    position: absolute;
     z-index: -1;
     left: 396px;
     right: 0;
     top: 0;
     bottom: 0;
-    background: url("../assets/banner.jpg") no-repeat ;
+    background: url("../../static/banner.jpg") no-repeat ;
     background-size: cover;
     h2 {
       color: #353d40;
